@@ -28,7 +28,7 @@ Each script runs individually
 
 ### standalone_thumbwrestling.ino
 
-![SA_wiring](SA_wiring.jpg)
+![SA_wiring](IMAGE_0635.heic)
 
 **How it works**
 1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
@@ -52,7 +52,7 @@ These parameters are defined at the beginning of the script:
 
 ### M5_capacitance.ino
 
-![cap_wiring](cap_wiring.jpg)
+![cap_wiring](Untitled13_20250807140901)
 
 resiterの選び方
 
