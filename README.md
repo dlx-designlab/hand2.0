@@ -28,7 +28,7 @@ Each script runs individually
 
 ### standalone_thumbwrestling.ino
 
-![SA_wiring](IMAGE_0635.heic)
+![SA_wiring](IMG_0635.heic)
 
 **How it works**
 1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
