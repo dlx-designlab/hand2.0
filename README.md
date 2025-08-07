@@ -52,7 +52,7 @@ These parameters are defined at the beginning of the script:
 
 ### M5_capacitance.ino
 
-![cap_wiring](Untitled13_20250807140901)
+![cap_wiring](Untitled13_20250807140901.jpg)
 
 resiterの選び方
 
