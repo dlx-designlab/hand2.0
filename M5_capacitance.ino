@@ -1,12 +1,17 @@
-// M5atomで自作コンデンサの静電容量を測る
+/*
 
-const int chargePin = G5;       // 充電用onoff出力ピン
-const int sensePin = G6;        // 電圧読み取り用アナログ入力ピン
+ A code for measuring the Matsuhisa Lab original capacitance pressure sensor on  M5 atom S3
+  
+*/
+
+
+const int chargePin = G5;       // On/Off output pin
+const int sensePin = G6;        // Analog input pin for voltage reading
 //const int dischargePin = G7;
 
-const float threshold_voltage = 1.1;         // しきい値電圧（例：1.1V）?
-const float source_voltage = 3.3;            // ESP32の出力電圧
-const float resistor_value = 51000.0;       // 10kΩ
+const float threshold_voltage = 1.1;         // Threshold voltage
+const float source_voltage = 3.3;            // Output voltage of ESP32 (M5 Atom)
+const float resistor_value = 51000.0;       // 51k ohm or 68k ohm (Set the value to match the actual resistance.)
 
 void setup() {
   Serial.begin(9600);
@@ -15,7 +20,7 @@ void setup() {
 }
 
 void loop() {
-  pinMode(sensePin, OUTPUT); //毎回放電してGNDに戻してからINPUT読み取る
+  pinMode(sensePin, OUTPUT); // Discharge the capacitor and return to GND before each INPUT read.
   digitalWrite(sensePin, LOW);
   delay(200);
   pinMode(sensePin, INPUT);
@@ -25,18 +30,18 @@ void loop() {
 
   while (true) {
     int adc = analogRead(sensePin);
-    float voltage = adc*(3.3 / 4095.0);  // ESP32 ADC換算 * 
+    float voltage = adc*(3.3 / 4095.0);  // ADC conversion
 
     if (voltage >= threshold_voltage) break;
-    if (micros() - startTime > 1000000) {  // タイムアウト：1秒
+    if (micros() - startTime > 1000000) {  // Timeout：1 sec
       Serial.println("Timeout");
       return;
     }
   }
   unsigned long elapsed = micros() - startTime;
-  digitalWrite(chargePin, LOW);  // 充電終了
+  digitalWrite(chargePin, LOW);  // Charging finished
 
-  // 静電容量計算
+ // Capacitance calculation
   float ln_part = log(1.0 - (threshold_voltage / source_voltage));
   float capacitance = -(float)elapsed / (resistor_value * ln_part);  // Farad単位
   Serial.println(capacitance * 1e5);
