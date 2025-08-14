@@ -3,13 +3,14 @@
 Treasure hunting project 2025 in collaboration with Matsuhisa Lab aiming to develop an "invisible" wearable device for thumb wrestling.
 
 _Status: Ongoing
+
 _Last updated: August 2025 documented by Tamaki
 
 ## 📁 Software
 
 Each script runs individually
 
-- `standalone_thumbwrestling.ino`  
+- `M5_thumbwrestling_fsr_communi.ino`  
    Arduino sketch for thumb wrestling (stand-alone version).
 
 - `M5_capacitance.ino`  
