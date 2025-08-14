@@ -19,7 +19,7 @@ const int vol_1 = G5;  // FSR sensor
 
 //Thresholds config
 const int threshold = 3000; // Threshold for the FSR to detect a press
-const int capasiter_threshold = 1000; // Capacitance threshold when the thumb touches the hand
+const int capacitor_threshold = 100000; // Capacitance threshold when the thumb touches the hand
 const int handshake_threshold = 100000; // Capacitance threshold when players shake hands
 const unsigned long winDuration = 5000; // Duration to win
 
@@ -34,8 +34,12 @@ int Value1 =0; //FSR value
 
 //Dummy value for the opponent
 bool touchState2 = 1;
-bool handshakeState2 = 1;
-int Value2 =4000; //FSR value
+bool handshakeState2 = 0;
+int Value2 =0; //FSR value
+
+int prevTouchState = -1;
+int prevHandshakeState = -1;
+int prevValue1 = -1;
 
 // Player state struct
 struct PlayerState {
@@ -56,7 +60,7 @@ void setup() {
   M5.begin();
   M5.Lcd.fillScreen(BLACK);
   M5.Lcd.setTextFont(2);
-
+  M5.Lcd.setTextSize(1);
   Serial.begin(9600);
 
   pinMode(vol_1, INPUT);
@@ -75,13 +79,10 @@ void loop() {
   //Read the capacitive pressure value
   Value1 = analogRead(vol_1);
 
-  touchState = touch > capasiter_threshold;
+  touchState = touch > capacitor_threshold;
   handshakeState = handshake > handshake_threshold;
 
-  if (millis() - lastDisplayUpdate >= 100) {
-    displayValuesOnM5();
-    lastDisplayUpdate = millis();
-  }
+  displayValuesOnM5();
 
   // States management
   switch(currentState) {
@@ -144,7 +145,7 @@ void handlePlayingState(int val1, long touch1, long handshake) {
 }
 
 void checkPlayer1Win(int val1, long touch, long handshake) {
-  bool condition = (val1 > threshold && touch > capasiter_threshold);
+  bool condition = (val1 > threshold && touch > capacitor_threshold);
   if(condition) {
     if(!player1.winConditionMet) {
       player1.winStartTime = millis();
@@ -193,9 +194,16 @@ void resetGame() {
 }
 
 void displayValuesOnM5() {
+
+  if (touchState == prevTouchState &&
+      handshakeState == prevHandshakeState &&
+      Value1 == prevValue1) {
+    return;  // Do not refresh if the value hasn't changed
+  }
+  
   // Display position (3 lines on the lower half of the screen)
   int startX = 0;
-  int startY = 100;
+  int startY = 60;
   int lineHeight = 20;
 
   // Partially clear the background (for overwriting)
@@ -203,10 +211,14 @@ void displayValuesOnM5() {
 
   M5.Lcd.setCursor(startX, startY);
   M5.Lcd.setTextColor(WHITE, BLACK);
-  //M5.Lcd.setTextSize(1); // Adjust font size (if necessary)
+  M5.Lcd.setTextSize(1); // Adjust font size (if necessary)
   
   M5.Lcd.println("TouchState: " + String(touchState));
   M5.Lcd.println("Handshake:  " + String(handshakeState));
   M5.Lcd.println("Value1:     " + String(Value1));
+
+  prevTouchState = touchState;
+  prevHandshakeState = handshakeState;
+  prevValue1 = Value1;
 }
 
