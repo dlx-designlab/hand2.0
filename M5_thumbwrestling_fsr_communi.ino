@@ -1,12 +1,14 @@
 /*
- * M5 S3 Atom Finger Wrestling Judge System - 2 independent devices version
- * 100ms に一回、3つの情報を出し続ける
+ * M5 S3 Atom Finger Wrestling Judge System - 2 independent devices version - will add wireless communication
+ * For now, display 3 information every 100ms
  */
+
 /*
- * 1: Not Capasitive Commercial Pressure Sensor
+ * 1: Using Commercial FSR
  * 2: M5 Touch Sensor for game start trigger
  * 3: Result display on M5
  */
+
 #include <Wire.h>
 #include <M5AtomS3.h>
 
@@ -16,12 +18,12 @@
 const int vol_1 = G5;  // FSR sensor
 
 //Thresholds config
-const int threshold = 3000;//FSR, if pressed
-const int capasiter_threshold = 1000; //if thumb touches hand when pressed
-const int handshake_threshold = 100000; //if players touch their hands each other
-const unsigned long winDuration = 5000;
+const int threshold = 3000; // Threshold for the FSR to detect a press
+const int capasiter_threshold = 1000; // Capacitance threshold when the thumb touches the hand
+const int handshake_threshold = 100000; // Capacitance threshold when players shake hands
+const unsigned long winDuration = 5000; // Duration to win
 
-//time management
+//time management variables
 const unsigned long readyDuration = 1000;
 unsigned long lastDisplayUpdate = 0;
 
@@ -30,7 +32,7 @@ bool touchState = 0;
 bool handshakeState = 0;
 int Value1 =0; //FSR value
 
-//Dummy value as an oppnent's state
+//Dummy value for the opponent
 bool touchState2 = 1;
 bool handshakeState2 = 1;
 int Value2 =4000; //FSR value
@@ -41,7 +43,7 @@ struct PlayerState {
   bool winConditionMet = false;
 };
 
-// Game state
+// Game states
 enum GameState {WAITING, READY, PLAYING, GAME_OVER};
 
 // Global variable set
@@ -70,7 +72,7 @@ void loop() {
   long touch = touchRead(TOUCH_PIN1);
   long handshake = touchRead(HANDSHAKE_PIN);
 
-  //Read the capasitive pressure value
+  //Read the capacitive pressure value
   Value1 = analogRead(vol_1);
 
   touchState = touch > capasiter_threshold;
@@ -81,7 +83,7 @@ void loop() {
     lastDisplayUpdate = millis();
   }
 
-  // State management
+  // States management
   switch(currentState) {
     case WAITING:
       handleWaitingState(handshake);
@@ -114,7 +116,7 @@ void handleWaitingState(long handshake) {
 }
 
 void handlePlayingState(int val1, long touch1, long handshake) {
-  // Pause whem hands are off
+  // Pause when hands are off
   if(handshake < handshake_threshold) {
     //Serial.println("Hands disconnected! Game paused.");
     M5.Lcd.fillScreen(BLACK);
@@ -124,10 +126,12 @@ void handlePlayingState(int val1, long touch1, long handshake) {
     currentState = WAITING;
     return;
   }
-  // 勝利判定
+  
+  // Win condition check
   checkPlayer1Win(val1, touch1, handshake);
   //checkPlayer2Win(val1, val2, touch2, handshake);
-  // エラーチェック
+  
+  // Error check
   /*
   if(val1 > threshold && val2 > threshold) {
     //Serial.println("error - Both pressing");
@@ -189,17 +193,17 @@ void resetGame() {
 }
 
 void displayValuesOnM5() {
-  // 表示位置（画面下半分に3行分）
+  // Display position (3 lines on the lower half of the screen)
   int startX = 0;
   int startY = 100;
   int lineHeight = 20;
 
-  // 背景を部分的にクリア（上書き用）
+  // Partially clear the background (for overwriting)
   M5.Lcd.fillRect(startX, startY, 128, lineHeight * 3, BLACK);
 
   M5.Lcd.setCursor(startX, startY);
   M5.Lcd.setTextColor(WHITE, BLACK);
-  //M5.Lcd.setTextSize(1); // フォントサイズ調整（必要に応じて）
+  //M5.Lcd.setTextSize(1); // Adjust font size (if necessary)
   
   M5.Lcd.println("TouchState: " + String(touchState));
   M5.Lcd.println("Handshake:  " + String(handshakeState));
