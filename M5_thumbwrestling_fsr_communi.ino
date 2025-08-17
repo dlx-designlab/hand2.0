@@ -1,5 +1,8 @@
 /*
- * M5 S3 Atom Finger Wrestling Judge System - 2 independent devices version - will add wireless communication
+ * M5 S3 Atom Finger Wrestling Judge System 
+ * For this video -> https://drive.google.com/file/d/1QNyZTJC7033aZxt6TYxbK8tVRA3WX5ky/view?usp=drive_link
+ * 
+ * 2 independent devices version - will add wireless communication
  * For now, display 3 information every 100ms
  */
 
@@ -53,7 +56,7 @@ enum GameState {WAITING, READY, PLAYING, GAME_OVER};
 // Global variable set
 GameState currentState = WAITING;
 PlayerState player1;
-PlayerState player2;
+//PlayerState player2;
 unsigned long stateStartTime = 0;
 
 void setup() {
@@ -91,8 +94,7 @@ void loop() {
       break;
     case PLAYING:
       //handlePlayingState(Value1, Value2, touch1, touch2, handshake);
-      //handlePlayingState(Value1, touch, handshake);
-      handlePlayingState(Value1, Value2, touchState, touchState2, handshakeState);
+      handlePlayingState(Value1, touch, handshake);
       break;   
     case GAME_OVER:
       delay(2000);
@@ -118,32 +120,6 @@ void handleWaitingState(long handshake) {
 }
 
 
-void handlePlayingState(int val1, int val2, bool touch1, bool touch2, bool handshake) {
-  // Pause when hands are off
-  if(!handshake) {
-    //Serial.println("Hands disconnected! Game paused.");
-    M5.Lcd.fillScreen(BLACK);
-    M5.Lcd.setCursor(10, 20); 
-    M5.Lcd.println("Hands disconnected! Game paused.");
-    resetCounters();
-    currentState = WAITING;
-    return;
-  }
-  
-  // Win condition check
-  checkPlayer1Win(val1, val2, touch1, handshake);
-  checkPlayer2Win(val1, val2, touch2, handshake);
-  
-  // Error check
-  if(val1 > threshold && val2 > threshold) {
-    //Serial.println("error - Both pressing");
-    M5.Lcd.fillScreen(BLACK);
-    M5.Lcd.setCursor(10, 20); 
-    M5.Lcd.println("Error - Both pressed.");
-    currentState = GAME_OVER;
-  }
-}
-/*
 void handlePlayingState(int val1, long touch1, long handshake) {
   // Pause when hands are off
   if(handshake < handshake_threshold) {
@@ -171,10 +147,9 @@ void handlePlayingState(int val1, long touch1, long handshake) {
   }
   */
 }
-*/
 
-void checkPlayer1Win(int val1, int val2, bool touch, bool handshake) {
-  bool condition = (val1 > threshold && val2 < threshold && touch);
+void checkPlayer1Win(int val1, long touch, long handshake) {
+  bool condition = (val1 > threshold && touch > capacitor_threshold);
   if(condition) {
     if(!player1.winConditionMet) {
       player1.winStartTime = millis();
@@ -182,7 +157,7 @@ void checkPlayer1Win(int val1, int val2, bool touch, bool handshake) {
       //Serial.println("Player2 Counting...");
       M5.Lcd.fillScreen(BLACK);
       M5.Lcd.setCursor(10, 20); 
-      M5.Lcd.println("Player2 Counting..");
+      M5.Lcd.println("Counting..");
     } 
     else if(millis() - player1.winStartTime >= winDuration) {
       //Serial.println("YOU LOSE!");
@@ -198,32 +173,7 @@ void checkPlayer1Win(int val1, int val2, bool touch, bool handshake) {
 
 void resetCounters() {
   resetPlayer1Counter();
-  resetPlayer2Counter();
-}
-
-void checkPlayer2Win(int val1, int val2, bool touch, bool handshake) {
-  bool condition = (val1 < threshold && val2 > threshold && touch);
-  
-  if(condition) {
-    if(!player2.winConditionMet) {
-      player2.winStartTime = millis();
-      player2.winConditionMet = true;
-      //Serial.println("Player2 Counting...");
-      lcd.clear();
-      lcd.print("You Counting...");
-
-    } 
-    else if(millis() - player2.winStartTime >= winDuration) {
-      //Serial.println("Player 2 WIN!");
-      lcd.clear();
-      lcd.print("YOU WIN!");
-      currentState = GAME_OVER;
-    }
-  } else {
-    //player2.winConditionMet = false;
-    resetPlayer2Counter();
-  }
-
+  //resetPlayer2Counter();
 }
   
 void resetPlayer1Counter() {
@@ -231,23 +181,15 @@ void resetPlayer1Counter() {
     //Serial.println("Player1 count reset");
     M5.Lcd.fillScreen(BLACK);
     M5.Lcd.setCursor(10, 20); 
-    M5.Lcd.println("Player1 count reset");
+    M5.Lcd.println("Count reset");
     player1.winConditionMet = false;
   }
 }
 
-void resetPlayer2Counter() {
-  if(player2.winConditionMet) {
-    //Serial.println("Player2 count reset");
-    player2.winConditionMet = false;
-    lcd.clear();
-    lcd.print("Your Count reset");
-  }
-}
 
 void resetGame() {
   player1 = PlayerState();
-  player2 = PlayerState();
+  //player2 = PlayerState();
   currentState = WAITING;
   stateStartTime = millis();
   //Serial.println("Game Reset. Please join hands to start.");
