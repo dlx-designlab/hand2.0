@@ -1,12 +1,14 @@
 /*
- * M5 S3 Atom Finger Wrestling Judge System - 2 independent devices version
- * 負けている方だけが判定する
+ * M5 S3 Atom Finger Wrestling Judge System
+ * Only loser judges
  */
+
 /*
- * 1: Not Capasitive Commercial Pressure Sensor
+ * 1: Using Commercial FSR Sensor
  * 2: M5 Touch Sensor for game start trigger
  * 3: Result display on M5
  */
+
 #include <Wire.h>
 #include <M5AtomS3.h>
 
@@ -57,7 +59,7 @@ void loop() {
   long touch = touchRead(TOUCH_PIN1);
   long handshake = touchRead(HANDSHAKE_PIN);
 
-  //Read the capasitive pressure value
+  //Read the capacitive pressure value
   int Value1 = analogRead(vol_1);
 
   // State management
