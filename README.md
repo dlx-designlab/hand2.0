@@ -74,7 +74,8 @@ These parameters are defined at the beginning of the script:
 ### M5_capacitance.ino
 
 ![cap_wiring](images/M5_capacitance_wire.jpg)
-![cap_draw](images/M5_capacitance_draw.jpg)
+![cap_draw](images/M5_capacitance_draw.png)
+![cap_pic](images/M5_capacitance_pic.png)
 
 **How to select the resistor value**
 
@@ -83,7 +84,7 @@ For the first-gen capacitive sensor,
 68k と51k
 
 **How to measure the capacitance with a tester**
-![tester](images/tester.jpg)
+![tester](images/tester.png)
 
 
 ### M5_thumbwrestling_com1.ino
