@@ -32,6 +32,7 @@ Each script runs individually
    Replace the dummy values with the communicated ones.
 
 - `M5_thumbwrestling_onejudge.ino`
+
    A step behind from `M5_thumbwrestling_com1.ino`.
    Only the loser judges the game when he is pressed for 5 seconds.
   
