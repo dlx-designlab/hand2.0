@@ -10,26 +10,40 @@ _Last updated: August 2025 documented by Tamaki
 
 Each script runs individually
 
-- `M5_thumbwrestling_fsr_communi.ino`  
-   Arduino sketch for thumb wrestling (stand-alone version).
+- `Arduino_thumbwrestling.ino`  
+   Arduino sketch for the **first prototype** of a judge system, using a single Arduino as the main controller.
+   Video on https://drive.google.com/file/d/1VUcGh0xSxG4f2ZdRcVpi-l9c60P2i8LT/view?usp=drive_link
+   _Note: We have since evolved the concept into a system with two stand-alone devices._
 
 - `M5_capacitance.ino`  
-   Arduino sketch to measure the capacitance of Matsuhisa Lab’s original pressure sensor.
+   Script to measure the capacitance of Matsuhisa Lab’s original pressure sensor.
 
-- `wired_thumbwrestlingjudge.ino`  
-   Arduino sketch for the **first prototype** of a thumb wrestling judge system, using a single Arduino as the main controller.  
-   _Note: We have since evolved the concept into a system with two stand-alone devices._
+- `M5_thumbwrestling_com1.ino`  
+   Script for thumb wrestling judge system with 3 data (touch, handshake, pressure value) displayed on M5.
+   Video on https://drive.google.com/file/d/1QNyZTJC7033aZxt6TYxbK8tVRA3WX5ky/view?usp=drive_link
+
+- `M5_thumbwrestling_com2.ino`
+   A step up from `M5_thumbwrestling_com1.ino`.
+   It includes dummy opponent data and makes judgments based on information from both players.
+   Replace the dummy values with the communicated ones.
+
+- `M5_thumbwrestling_onejudge.ino`
+   A step behind from `M5_thumbwrestling_com1.ino`.
+   Only the loser judges the game when he is pressed for 5 seconds.
+  
+
 
 ## ⚙️ Hardware
 
-- M5 Atom S3 for `standalone_thumbwrestling.ino` and `M5_capacitance.ino`
-- Arduino UNO for `wired_thumbwrestlingjugde.ino`
+- Arduino UNO for `Arduino_thumbwrestling.ino`  
+- M5 Atom S3 for `M5_capacitance.ino`, `M5_thumbwrestling_com1.ino`, `M5_thumbwrestling_com2.ino`, and `M5_thumbwrestling_onejudge.ino`.
 
-## 🛠️ Wiring and Behavior
 
-### standalone_thumbwrestling.ino
+## 🛠️ Wiring and Behaviour
 
-![SA_wiring](Untitled13_20250807140901.jpg)
+### Arduino_thumbwrestling.ino
+
+![Arduino_wiring](Untitled13_20250807140901.jpg)
 
 **How it works**
 1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
