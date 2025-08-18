@@ -12,7 +12,9 @@ Each script runs individually
 
 - `Arduino_thumbwrestling.ino`  
    Arduino sketch for the **first prototype** of a judge system, using a single Arduino as the main controller.
+
    Video on https://drive.google.com/file/d/1VUcGh0xSxG4f2ZdRcVpi-l9c60P2i8LT/view?usp=drive_link
+
    _Note: We have since evolved the concept into a system with two stand-alone devices._
 
 - `M5_capacitance.ino`  
@@ -20,6 +22,7 @@ Each script runs individually
 
 - `M5_thumbwrestling_com1.ino`  
    Script for thumb wrestling judge system with 3 data (touch, handshake, pressure value) displayed on M5.
+
    Video on https://drive.google.com/file/d/1QNyZTJC7033aZxt6TYxbK8tVRA3WX5ky/view?usp=drive_link
 
 - `M5_thumbwrestling_com2.ino`
