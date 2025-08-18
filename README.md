@@ -26,6 +26,7 @@ Each script runs individually
    Video on https://drive.google.com/file/d/1QNyZTJC7033aZxt6TYxbK8tVRA3WX5ky/view?usp=drive_link
 
 - `M5_thumbwrestling_com2.ino`
+
    A step up from `M5_thumbwrestling_com1.ino`.
    It includes dummy opponent data and makes judgments based on information from both players.
    Replace the dummy values with the communicated ones.
@@ -46,7 +47,7 @@ Each script runs individually
 
 ### Arduino_thumbwrestling.ino
 
-![Arduino_wiring](Untitled13_20250807140901.jpg)
+![Arduino_wiring](images/Arduino_thumbwrestling.jpg)
 
 **How it works**
 1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
