@@ -50,6 +50,8 @@ Each script runs individually
 
 ![Arduino_wiring](images/Arduino_thumbwresting.jpg)
 
+![Arduino_pic](images/Arduino_pic.png)
+
 **How it works**
 1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
    If either player lets go during the game, the system resets.
