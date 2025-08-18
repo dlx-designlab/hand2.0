@@ -1,5 +1,6 @@
 /*
- * Arduino Thumbwrestling Jugde system
+ * Arduino Thumbwrestling Judge system
+ * For this video -> https://drive.google.com/file/d/1VUcGh0xSxG4f2ZdRcVpi-l9c60P2i8LT/view?usp=drive_link
  */
 
 /*
