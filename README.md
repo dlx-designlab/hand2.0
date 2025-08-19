@@ -79,7 +79,7 @@ These parameters are defined at the beginning of the script:
 
 **How to select the resistor value**
 
-The resistor between and matters.
+The resistor between the capacitance sensor and M5 influences the sensitivity and the response delay.
 For the first-gen capacitive sensor,  
 68k と51k
 
