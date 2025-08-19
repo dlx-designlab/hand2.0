@@ -49,6 +49,7 @@ Each script runs individually
 
 ## 🛠️ Wiring and Behaviour
 <br>
+
 ### Arduino_thumbwrestling.ino
 
 ![Arduino_wiring](images/Arduino_thumbwresting.jpg)
