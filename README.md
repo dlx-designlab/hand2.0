@@ -37,6 +37,7 @@ Each script runs individually
    Only the loser judges the game when he is pressed for 5 seconds.
   
 
+<br><br>
 
 ## ⚙️ Hardware
 
@@ -44,7 +45,7 @@ Each script runs individually
 - M5 Atom S3 for `M5_capacitance.ino`, `M5_thumbwrestling_com1.ino`, `M5_thumbwrestling_com2.ino`, and `M5_thumbwrestling_onejudge.ino`.
 
 
-
+<br><br>
 
 ## 🛠️ Wiring and Behaviour
 
