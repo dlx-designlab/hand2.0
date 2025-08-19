@@ -123,7 +123,9 @@ If your digital multimeter has the marking ‘Cx’ around its terminals, insert
 
 
 The wiring is the same as `M5_thumbwrestling_com2.ino`
+
 <br>
+
 **Operation**
 1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
    If either player lets go during the game, the system resets.
@@ -139,6 +141,7 @@ The wiring is the same as `M5_thumbwrestling_com2.ino`
 <br>
 The wiring is the same as `M5_thumbwrestling_com2.ino`
 
+<br>
 
 **Operation**
 
