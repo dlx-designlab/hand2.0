@@ -44,6 +44,8 @@ Each script runs individually
 - M5 Atom S3 for `M5_capacitance.ino`, `M5_thumbwrestling_com1.ino`, `M5_thumbwrestling_com2.ino`, and `M5_thumbwrestling_onejudge.ino`.
 
 
+
+
 ## 🛠️ Wiring and Behaviour
 
 ### Arduino_thumbwrestling.ino
