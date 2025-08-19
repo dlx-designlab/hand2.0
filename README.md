@@ -138,12 +138,14 @@ The wiring is the same as `M5_thumbwrestling_com2.ino`
 
 ### M5_thumbwrestling_onejudge.ino
 
-<br>
+
 The wiring is the same as `M5_thumbwrestling_com2.ino`
 
 <br>
 
+
 **Operation**
+
 
 Almost the same as `M5_thumbwrestling_com2.ino`.
 
