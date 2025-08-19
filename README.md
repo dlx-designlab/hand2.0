@@ -48,21 +48,24 @@ Each script runs individually
 <br><br>
 
 ## 🛠️ Wiring and Behaviour
-
+<br>
 ### Arduino_thumbwrestling.ino
 
 ![Arduino_wiring](images/Arduino_thumbwresting.jpg)
 
 ![Arduino_pic](images/Arduino_pic.png)
 
+<br>
+
 **How it works**
 1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
    If either player lets go during the game, the system resets.
 
-2. The display shows the states of the game
+2. The display shows the states of the game.
 
 3. Either of the players wins when he presses the opponent's thumb for 5 seconds.
-   
+
+<br>
 
 **Threshold Configuration**
 
@@ -73,6 +76,7 @@ These parameters are defined at the beginning of the script:
 - Thumb touch sensor threshold  
 - Required time to register a win: **5 seconds**
 
+<br>
 
 ### M5_capacitance.ino
 
@@ -80,29 +84,60 @@ These parameters are defined at the beginning of the script:
 ![cap_draw](images/M5_capacitance_draw.png)
 ![cap_pic](images/M5_capacitance_pic.png)
 
+<br>
+
 **How to select the resistor value**
 
 The resistor between the capacitance sensor and M5 influences the sensitivity and the response delay.
-For the first-gen capacitive sensor,  
-68k と51k
+For the first-gen capacitive sensor, use **68k Ω** or **51k Ω**.
+The 68k has more delay but higher sensitivity. The 51k has less delay and faster response, but lower sensitivity. Sometimes it won't react even when pressure is applied.
+
+<br>
 
 **How to measure the capacitance with a tester**
 ![tester](images/tester.png)
 
+If your digital multimeter has the marking ‘Cx’ around its terminals, insert the leads into those terminals to measure capacitance.
+
+<br>
 
 ### M5_thumbwrestling_com1.ino
 
 ![wired_wiring](images/M5_fsr_wire.jpg)
 ![drawn_wiring](images/M5_fsr_draw.jpg)
 
+<br>
 
 **Operation**
-1. 各プレイヤーが手首につけているタッチセンサのキャパシタンスの変化によってプレイヤー同士が手を組んだことを表示します. ゲーム中にプレイヤーが手を離せばゲームはリセットされます。
-2. 親指の爪の上の圧力センサが押されているかどうか、親指の腹のタッチせんさ（今後圧力センサに変更予定）が触れているかどうかを判定する
-3. 一つのarduinoが、読み取った情報を元に勝敗を判定する。
- 4. 
-   - Whether the **pressure sensor** on the thumbnail is being pressed.
-   - Whether the **touch sensor** on the pad of the thumb (planned to be replaced with a pressure sensor) is being activated.
+1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
+   If either player lets go during the game, the system resets.
+   
+2. The display shows the states of the game and these 3 data: thumb touch(0/1), handshake(0,1), and pressure sensor value.
 
-5. These signals (a, b, c) are sent to the opponent’s device.  
-   Each device receives the other’s signals and determines the game result accordingly.
+3. If your thumb touch is true and the pressure value stays above the threshold for 5 seconds, the system will judge it as a loss.
+
+<br>
+
+### M5_thumbwrestling_com2.ino
+<br>
+The wiring is the same as `M5_thumbwrestling_com2.ino`
+
+**Operation**
+1. The game starts when both players join hands — detected by changes in the capacitance of wrist-mounted touch sensors.  
+   If either player lets go during the game, the system resets.
+   
+2. The display shows the states of the game and these 3 data: thumb touch(0/1), handshake(0,1), and pressure sensor value.
+
+3. The system judges based on its own 3 data and the opponent's dummy data
+
+<br>
+
+### M5_thumbwrestling_onejudge.ino
+
+<br>
+<br>
+The wiring is the same as `M5_thumbwrestling_com2.ino`
+
+**Operation**
+Almost the same as `M5_thumbwrestling_com2.ino`.
+This doesn't display the data.
