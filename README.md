@@ -139,6 +139,9 @@ The wiring is the same as `M5_thumbwrestling_com2.ino`
 <br>
 The wiring is the same as `M5_thumbwrestling_com2.ino`
 
+
 **Operation**
+
 Almost the same as `M5_thumbwrestling_com2.ino`.
+
 This doesn't display the data.
